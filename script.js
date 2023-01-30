@@ -1,0 +1,94 @@
+const data = [];
+
+ymaps.ready(init);
+
+function init() {
+  const myMap = new ymaps.Map("YMapsID", {
+      center: [56.25, 64.12],
+      zoom: 4,
+    }),
+    myCollection = new ymaps.GeoObjectCollection(),
+    myPoints = data;
+
+  for (let i = 0, l = myPoints.length; i < l; i++) {
+    const point = myPoints[i];
+    myCollection.add(
+      new ymaps.Placemark(
+        point.coords,
+        {
+          balloonContentHeader: `<span class="description">${point.name}</span>`,
+          balloonContentBody:
+            '<a href="tel:+7-800-350-52-23">+7 (800) 350-52-23</a><br/>' +
+            `<b>${point.address_first}</b><br/>${point.address_second}`,
+          balloonContentFooter: `${point.hours}`,
+        },
+        {
+          iconColor: "#df824e",
+        }
+      )
+    );
+  }
+
+  myMap.geoObjects.add(myCollection);
+
+  const mySearchControl = new ymaps.control.SearchControl({
+    options: {
+      provider: new CustomSearchProvider(myPoints),
+      noPlacemark: true,
+      resultsPerPage: 5,
+    },
+  });
+
+  myMap.controls.add(mySearchControl, { float: "left" });
+}
+
+function CustomSearchProvider(points) {
+  this.points = points;
+}
+
+CustomSearchProvider.prototype.geocode = function (request, options) {
+  const deferred = new ymaps.vow.defer(),
+    geoObjects = new ymaps.GeoObjectCollection(),
+    offset = options.skip || 0,
+    limit = options.results || 20;
+
+  let points = [];
+
+  for (let i = 0, l = this.points.length; i < l; i++) {
+    const point = this.points[i];
+    if (
+      point.address_first.toLowerCase().indexOf(request.toLowerCase()) != -1
+    ) {
+      points.push(point);
+    }
+  }
+  points = points.splice(offset, limit);
+  for (let i = 0, l = points.length; i < l; i++) {
+    const point = points[i],
+      coords = point.coords,
+      text = point.address_first;
+
+    geoObjects.add(
+      new ymaps.Placemark(coords, {
+        name: text + " name",
+        description: text + " description",
+        balloonContentBody: "<p>" + text + "</p>",
+        boundedBy: [coords, coords],
+      })
+    );
+  }
+
+  deferred.resolve({
+    geoObjects: geoObjects,
+    metaData: {
+      geocoder: {
+        request: request,
+        found: geoObjects.getLength(),
+        results: limit,
+        skip: offset,
+      },
+    },
+  });
+
+  return deferred.promise();
+};
