@@ -1,0 +1,21 @@
+body {
+  background-color: snow;
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100vw;
+  height: 100vh;
+} 
+
+.map {
+  width: 100%;
+  min-width: 320px;
+  max-width: 1160px;
+  height: 100%;
+  min-height: 300px;
+  max-height: 600px;
+}
