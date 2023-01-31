@@ -1,7 +1,7 @@
 # february-1
 Yandex.Maps API
 
-Трогаю API карт.
+[Трогаю API карт](https://auroraptor.github.io/february-1/)
 
 - [x] Получаю ключи
 - [x] Настраиваю поиск по собственным объектам
