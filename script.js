@@ -28,7 +28,7 @@ function init() {
         {
           balloonContentHeader: `<span class="description">${point.name}</span>`,
           balloonContentBody:
-            '<a href="tel:+7-800-350-52-23">+7 (800) 350-52-23</a><br/>' +
+            '<a href="tel:+7-800-000-00-00">+7 (800) 000-00-00</a><br/>' +
             `<b>${point.address_first}</b><br/>${point.address_second}`,
           balloonContentFooter: `${point.hours}`,
         },
