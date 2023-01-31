@@ -13,7 +13,7 @@ ymaps.ready(init);
 
 function init() {
   const myMap = new ymaps.Map("YMapsID", {
-      center: [56.25, 64.12],
+      center: [45.22, 147.88],
       zoom: 4,
       controls: [],
     }),
@@ -33,7 +33,7 @@ function init() {
           balloonContentFooter: `${point.hours}`,
         },
         {
-          iconColor: "#df824e",
+          iconColor: "#87ceeb",
         }
       )
     );
