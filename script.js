@@ -1,11 +1,13 @@
-const data = [  {
+const data = [
+  {
     coords: [45.224621, 147.876862],
     name: "Аврора Авиакомпания",
     address_first: "Курильск, Сахалинская область, 694530",
     address_second: "Кооперативная улица, 1А",
     phone: "+7-000-000-00-00",
     hours: "тут будет какая-то информация",
-  }];
+  },
+];
 
 ymaps.ready(init);
 
@@ -13,6 +15,7 @@ function init() {
   const myMap = new ymaps.Map("YMapsID", {
       center: [56.25, 64.12],
       zoom: 4,
+      controls: [],
     }),
     myCollection = new ymaps.GeoObjectCollection(),
     myPoints = data;
